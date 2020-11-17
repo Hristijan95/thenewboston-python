@@ -1,17 +1,24 @@
-from setuptools import setup, find_packages
+# -*- coding: utf-8 -*-
+import re
+
+from setuptools import find_packages, setup
+
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
+
+with open('requirements.txt', encoding='utf-8') as f:
+    requirements = f.read().splitlines()
+
+with open('src/thenewboston/__init__.py', encoding='utf8') as f:
+    version = re.search(r'__version__ = \'(.*?)\'', f.read()).group(1)
 
 setup(
-    install_requires=[
-        'Django==3.0.7',
-        'PTable==0.9.2',
-        'PyNaCl==1.3.0',
-        'djangorestframework==3.11.0',
-        'pycodestyle==2.6.0',
-        'requests~=2.23.0',
-    ],
+    install_requires=requirements,
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     name='thenewboston',
     packages=find_packages(
         exclude=['tests', 'tests.*']
     ),
-    version='0.0.1',
+    version=version,
 )
